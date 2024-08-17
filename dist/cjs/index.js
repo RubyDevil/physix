@@ -15,4 +15,5 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 __exportStar(require("./classes/vector-2d"), exports);
+__exportStar(require("./classes/point-2d"), exports);
 //# sourceMappingURL=index.js.map

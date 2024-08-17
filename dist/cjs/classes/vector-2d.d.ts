@@ -1,7 +1,7 @@
 /**
  * Class representing a 2D vector.
  */
-export declare class Vector2D extends Object {
+export declare class Vector2D {
     /** The x-coordinate of the vector. */
     x: number;
     /** The y-coordinate of the vector. */
@@ -58,7 +58,7 @@ export declare class Vector2D extends Object {
      */
     divide(scalar: number): Vector2D;
     /**
-     * Flips the vector (multiplies it by -1).
+     * Flips the vector along the x-axis and y-axis.
      * @returns {Vector2D} The resulting vector.
      */
     flip(): Vector2D;
@@ -107,7 +107,7 @@ export declare class Vector2D extends Object {
      * @param {string} [notation="rectangular"] - The notation to use, either "rectangular" or "polar".
      * @returns {string} A string representation of the vector.
      */
-    toString(notation?: "rectangular" | "polar"): string;
+    toText(notation?: "rectangular" | "polar"): string;
     /**
      * Creates a zero vector.
      * @returns {Vector2D} A zero vector.

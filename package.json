@@ -2,6 +2,9 @@
   "name": "physix",
   "version": "1.0.0",
   "description": "",
+  "author": "RubyDevil",
+  "license": "ISC",
+  "keywords": [],
   "main": "./dist/cjs/index.js",
   "module": "./dist/esm/index.js",
   "types": "./dist/esm/index.d.ts",
@@ -16,11 +19,11 @@
     "build:esm": "tsc --project tsconfig.esm.json",
     "build": "npm run build:cjs && npm run build:esm"
   },
-  "keywords": [],
-  "author": "RubyDevil",
-  "license": "ISC",
   "devDependencies": {
     "@types/node": "^22.4.0",
     "typescript": "^5.5.4"
+  },
+  "dependencies": {
+    "undici-types": "^6.19.6"
   }
 }

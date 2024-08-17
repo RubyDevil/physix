@@ -1,7 +1,7 @@
 /**
  * Class representing a 2D vector.
  */
-export class Vector2D extends Object {
+export class Vector2D {
    /** The x-coordinate of the vector. */
    x: number;
 
@@ -14,7 +14,6 @@ export class Vector2D extends Object {
     * @param {number} y - The y-coordinate.
     */
    constructor(x: number, y: number) {
-      super();
       this.x = x;
       this.y = y;
    }
@@ -104,7 +103,7 @@ export class Vector2D extends Object {
    }
 
    /**
-    * Flips the vector (multiplies it by -1).
+    * Flips the vector along the x-axis and y-axis.
     * @returns {Vector2D} The resulting vector.
     */
    flip(): Vector2D {
@@ -193,7 +192,7 @@ export class Vector2D extends Object {
     * @param {string} [notation="rectangular"] - The notation to use, either "rectangular" or "polar".
     * @returns {string} A string representation of the vector.
     */
-   toString(notation: "rectangular" | "polar" = "rectangular"): string {
+   toText(notation: "rectangular" | "polar" = "rectangular"): string {
       if (notation === "rectangular") {
          return `Vector(${this.x}, ${this.y})`;
       } else if (notation === "polar") {
