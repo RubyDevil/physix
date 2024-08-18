@@ -1,7 +1,7 @@
 /**
  * Class representing a 2D vector.
  */
-export class Vector2D {
+export class Vector {
    /** The x-coordinate of the vector. */
    x: number;
 
@@ -19,11 +19,11 @@ export class Vector2D {
    }
 
    /**
-    * Creates a copy of the vector.
-    * @returns {Vector2D} A copy of the vector.
+    * Creates a clone of the vector.
+    * @returns {Vector} A clone of the vector.
     */
-   copy(): Vector2D {
-      return new Vector2D(this.x, this.y);
+   clone(): Vector {
+      return new Vector(this.x, this.y);
    }
 
    // ----- Information -----
@@ -58,11 +58,23 @@ export class Vector2D {
    // ----- Transformations -----
 
    /**
-    * Adds another vector to this vector.
-    * @param {Vector2D} vector - The vector to add.
-    * @returns {Vector2D} The resulting vector.
+    * Sets the coordinates of the vector.
+    * @param {number} x - The new x-coordinate.
+    * @param {number} y - The new y-coordinate.
+    * @returns {Vector} The resulting vector.
     */
-   add(vector: Vector2D): Vector2D {
+   set(x: number, y: number): Vector {
+      this.x = x;
+      this.y = y;
+      return this;
+   }
+
+   /**
+    * Adds another vector to this vector.
+    * @param {Vector} vector - The vector to add.
+    * @returns {Vector} The resulting vector.
+    */
+   add(vector: Vector): Vector {
       this.x += vector.x;
       this.y += vector.y;
       return this;
@@ -70,10 +82,10 @@ export class Vector2D {
 
    /**
     * Subtracts another vector from this vector.
-    * @param {Vector2D} vector - The vector to subtract.
-    * @returns {Vector2D} The resulting vector.
+    * @param {Vector} vector - The vector to subtract.
+    * @returns {Vector} The resulting vector.
     */
-   subtract(vector: Vector2D): Vector2D {
+   subtract(vector: Vector): Vector {
       this.x -= vector.x;
       this.y -= vector.y;
       return this;
@@ -82,9 +94,9 @@ export class Vector2D {
    /**
     * Multiplies the vector by a scalar.
     * @param {number} scalar - The scalar to multiply by.
-    * @returns {Vector2D} The resulting vector.
+    * @returns {Vector} The resulting vector.
     */
-   multiply(scalar: number): Vector2D {
+   multiply(scalar: number): Vector {
       this.x *= scalar;
       this.y *= scalar;
       return this;
@@ -93,9 +105,9 @@ export class Vector2D {
    /**
     * Divides the vector by a scalar.
     * @param {number} scalar - The scalar to divide by.
-    * @returns {Vector2D} The resulting vector.
+    * @returns {Vector} The resulting vector.
     */
-   divide(scalar: number): Vector2D {
+   divide(scalar: number): Vector {
       if (scalar === 0) throw new Error("Division by zero.");
       this.x /= scalar;
       this.y /= scalar;
@@ -104,9 +116,9 @@ export class Vector2D {
 
    /**
     * Flips the vector along the x-axis and y-axis.
-    * @returns {Vector2D} The resulting vector.
+    * @returns {Vector} The resulting vector.
     */
-   flip(): Vector2D {
+   flip(): Vector {
       this.x = -this.x;
       this.y = -this.y;
       return this;
@@ -114,9 +126,9 @@ export class Vector2D {
 
    /**
     * Flips the vector along the x-axis.
-    * @returns {Vector2D} The resulting vector.
+    * @returns {Vector} The resulting vector.
     */
-   flipX(): Vector2D {
+   flipX(): Vector {
       this.x = -this.x;
       return this;
    }
@@ -124,28 +136,28 @@ export class Vector2D {
 
    /**
     * Flips the vector along the y-axis.
-    * @returns {Vector2D} The resulting vector.
+    * @returns {Vector} The resulting vector.
     */
-   flipY(): Vector2D {
+   flipY(): Vector {
       this.y = -this.y;
       return this;
    }
 
    /**
     * Normalizes the vector (makes it a unit vector).
-    * @returns {Vector2D} The normalized vector.
+    * @returns {Vector} The normalized vector.
     */
-   normalize(): Vector2D {
+   normalize(): Vector {
       const magnitude = this.magnitude();
-      return new Vector2D(this.x / magnitude, this.y / magnitude);
+      return new Vector(this.x / magnitude, this.y / magnitude);
    }
 
    /**
     * Resizes the vector to have the specified magnitude.
     * @param {number} magnitude - The new magnitude for the vector.
-    * @returns {Vector2D} The resulting vector.
+    * @returns {Vector} The resulting vector.
     */
-   resize(magnitude: number): Vector2D {
+   resize(magnitude: number): Vector {
       if (this.isZero()) return this;
       return this.multiply(magnitude / this.magnitude());
    }
@@ -154,9 +166,9 @@ export class Vector2D {
     * Clamps the vector's magnitude to a specified range.
     * @param {number} min - The minimum magnitude.
     * @param {number} max - The maximum magnitude.
-    * @returns {Vector2D} The clamped vector.
+    * @returns {Vector} The clamped vector.
     */
-   clamp(min: number, max: number): Vector2D {
+   clamp(min: number, max: number): Vector {
       const clampedMagnitude = Math.max(min, Math.min(this.magnitude(), max));
       return this.resize(clampedMagnitude);
    }
@@ -164,9 +176,9 @@ export class Vector2D {
    /**
     * Rotates the vector by a specified angle.
     * @param {number} angle - The angle to rotate by.
-    * @returns {Vector2D} The resulting vector.
+    * @returns {Vector} The resulting vector.
     */
-   rotate(angle: number): Vector2D {
+   rotate(angle: number): Vector {
       const cos = Math.cos(angle);
       const sin = Math.sin(angle);
       const x = this.x * cos - this.y * sin;
@@ -180,10 +192,10 @@ export class Vector2D {
 
    /**
     * Checks if the vector is equal to another vector.
-    * @param {Vector2D} vector - The other vector.
+    * @param {Vector} vector - The other vector.
     * @returns {boolean} True if the vectors are equal, false otherwise.
     */
-   equals(vector: Vector2D): boolean {
+   equals(vector: Vector): boolean {
       return this.x === vector.x && this.y === vector.y;
    }
 
@@ -206,57 +218,57 @@ export class Vector2D {
 
    /**
     * Creates a zero vector.
-    * @returns {Vector2D} A zero vector.
+    * @returns {Vector} A zero vector.
     */
-   static Zero(): Vector2D {
-      return new Vector2D(0, 0);
+   static Zero(): Vector {
+      return new Vector(0, 0);
    }
 
    /**
     * Creates a vector from polar coordinates (magnitude and angle).
     * @param {number} magnitude - The magnitude.
     * @param {number} angle - The angle.
-    * @returns {Vector2D} The resulting vector.
+    * @returns {Vector} The resulting vector.
     */
-   static fromPolar(magnitude: number, angle: number): Vector2D {
-      return new Vector2D(magnitude * Math.cos(angle), magnitude * Math.sin(angle));
+   static fromPolar(magnitude: number, angle: number): Vector {
+      return new Vector(magnitude * Math.cos(angle), magnitude * Math.sin(angle));
    }
 
    /**
     * Creates a unit vector from an angle.
     * @param {number} angle - The angle.
-    * @returns {Vector2D} The resulting unit vector.
+    * @returns {Vector} The resulting unit vector.
     */
-   static fromAngle(angle: number): Vector2D {
-      return new Vector2D(Math.cos(angle), Math.sin(angle));
+   static fromAngle(angle: number): Vector {
+      return new Vector(Math.cos(angle), Math.sin(angle));
    }
 
    /**
     * Calculates the dot product of two vectors.
-    * @param {Vector2D} vector1 - The first vector.
-    * @param {Vector2D} vector2 - The second vector.
+    * @param {Vector} vector1 - The first vector.
+    * @param {Vector} vector2 - The second vector.
     * @returns {number} The dot product of the two vectors.
     */
-   static dotProduct(vector1: Vector2D, vector2: Vector2D): number {
+   static dotProduct(vector1: Vector, vector2: Vector): number {
       return vector1.x * vector2.x + vector1.y * vector2.y;
    }
 
    /**
     * Calculates the cross product of two vectors.
-    * @param {Vector2D} vector1 - The first vector.
-    * @param {Vector2D} vector2 - The second vector.
+    * @param {Vector} vector1 - The first vector.
+    * @param {Vector} vector2 - The second vector.
     * @returns {number} The cross product of the two vectors.
     */
-   static crossProduct(vector1: Vector2D, vector2: Vector2D): number {
+   static crossProduct(vector1: Vector, vector2: Vector): number {
       return vector1.x * vector2.y - vector1.y * vector2.x;
    }
 
    /**
     * Calculates the sum of several vectors.
-    * @param {...Vector2D} vectors - The vectors to combine.
-    * @returns {Vector2D} The resulting vector.
+    * @param {...Vector} vectors - The vectors to combine.
+    * @returns {Vector} The resulting vector.
     */
-   static combine(...vectors: Vector2D[]): Vector2D {
-      return vectors.reduce((sum, vector) => sum.add(vector), Vector2D.Zero());
+   static combine(...vectors: Vector[]): Vector {
+      return vectors.reduce((sum, vector) => sum.add(vector), Vector.Zero());
    }
 }

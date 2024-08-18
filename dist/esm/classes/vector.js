@@ -12,10 +12,10 @@ export class Vector {
         this.y = y;
     }
     /**
-     * Creates a copy of the vector.
-     * @returns {Vector} A copy of the vector.
+     * Creates a clone of the vector.
+     * @returns {Vector} A clone of the vector.
      */
-    copy() {
+    clone() {
         return new Vector(this.x, this.y);
     }
     // ----- Information -----
@@ -44,6 +44,17 @@ export class Vector {
         return Math.atan2(this.y, this.x);
     }
     // ----- Transformations -----
+    /**
+     * Sets the coordinates of the vector.
+     * @param {number} x - The new x-coordinate.
+     * @param {number} y - The new y-coordinate.
+     * @returns {Vector} The resulting vector.
+     */
+    set(x, y) {
+        this.x = x;
+        this.y = y;
+        return this;
+    }
     /**
      * Adds another vector to this vector.
      * @param {Vector} vector - The vector to add.
@@ -87,7 +98,7 @@ export class Vector {
         return this;
     }
     /**
-     * Flips the vector (multiplies it by -1).
+     * Flips the vector along the x-axis and y-axis.
      * @returns {Vector} The resulting vector.
      */
     flip() {
@@ -167,7 +178,7 @@ export class Vector {
      * @param {string} [notation="rectangular"] - The notation to use, either "rectangular" or "polar".
      * @returns {string} A string representation of the vector.
      */
-    toString(notation = "rectangular") {
+    toText(notation = "rectangular") {
         if (notation === "rectangular") {
             return `Vector(${this.x}, ${this.y})`;
         }

@@ -14,6 +14,7 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
     for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-__exportStar(require("./classes/vector-2d"), exports);
-__exportStar(require("./classes/point-2d"), exports);
+__exportStar(require("./classes/vector"), exports);
+__exportStar(require("./classes/point"), exports);
+__exportStar(require("./classes/hitbox"), exports);
 //# sourceMappingURL=index.js.map

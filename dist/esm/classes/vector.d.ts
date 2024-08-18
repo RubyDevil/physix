@@ -13,10 +13,10 @@ export declare class Vector {
      */
     constructor(x: number, y: number);
     /**
-     * Creates a copy of the vector.
-     * @returns {Vector} A copy of the vector.
+     * Creates a clone of the vector.
+     * @returns {Vector} A clone of the vector.
      */
-    copy(): Vector;
+    clone(): Vector;
     /**
      * Checks if the vector is a zero vector.
      * @returns {boolean} True if the vector is a zero vector, false otherwise.
@@ -33,6 +33,13 @@ export declare class Vector {
      * @returns {number} The angle of the vector.
      */
     angle(): number;
+    /**
+     * Sets the coordinates of the vector.
+     * @param {number} x - The new x-coordinate.
+     * @param {number} y - The new y-coordinate.
+     * @returns {Vector} The resulting vector.
+     */
+    set(x: number, y: number): Vector;
     /**
      * Adds another vector to this vector.
      * @param {Vector} vector - The vector to add.
@@ -58,7 +65,7 @@ export declare class Vector {
      */
     divide(scalar: number): Vector;
     /**
-     * Flips the vector (multiplies it by -1).
+     * Flips the vector along the x-axis and y-axis.
      * @returns {Vector} The resulting vector.
      */
     flip(): Vector;
@@ -107,7 +114,7 @@ export declare class Vector {
      * @param {string} [notation="rectangular"] - The notation to use, either "rectangular" or "polar".
      * @returns {string} A string representation of the vector.
      */
-    toString(notation?: "rectangular" | "polar"): string;
+    toText(notation?: "rectangular" | "polar"): string;
     /**
      * Creates a zero vector.
      * @returns {Vector} A zero vector.

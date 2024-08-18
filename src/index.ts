@@ -1,2 +1,3 @@
-export * from "./classes/vector-2d";
-export * from "./classes/point-2d";
+export * from "./classes/vector";
+export * from "./classes/point";
+export * from "./classes/hitbox";
