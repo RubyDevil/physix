@@ -1,19 +1,82 @@
-import { Point } from "./point";
+/**
+ * Base class representing a hitbox in 2D space.
+ * @abstract
+ */
+export abstract class Hitbox {
+   constructor() {
+      if (new.target === Hitbox) {
+         throw new TypeError("Hitbox is an abstract class and cannot be instantiated directly.");
+      }
+   }
+}
 
 /**
- * Abstract base class representing a hitbox in 2D space.
+ * Class representing a circular hitbox.
  */
-abstract class Hitbox {
-   position: Point;
-
-   constructor(position: Point) {
-      this.position = position;
-   }
+export class CircularHitbox extends Hitbox {
+   /**
+    * The radius of the circular hitbox.
+    */
+   radius: number;
 
    /**
-    * Checks if this hitbox intersects with another hitbox.
-    * @param {Hitbox} other - The other hitbox to check against.
-    * @returns {boolean} True if the hitboxes intersect, false otherwise.
+    * Creates a circular hitbox.
+    * @param radius - The radius of the circular hitbox.
     */
-   abstract intersects(other: Hitbox): boolean;
+   constructor(radius: number) {
+      super();
+      this.radius = radius;
+   }
+}
+
+/**
+ * Class representing a rectangular hitbox.
+ */
+export class RectangularHitbox extends Hitbox {
+   /**
+    * The width of the rectangular hitbox.
+    */
+   width: number;
+
+   /**
+    * The height of the rectangular hitbox.
+    */
+   height: number;
+
+   /**
+    * Creates a rectangular hitbox.
+    * @param width - The width of the rectangular hitbox.
+    * @param height - The height of the rectangular hitbox.
+    */
+   constructor(width: number, height: number) {
+      super();
+      this.width = width;
+      this.height = height;
+   }
+}
+
+/**
+ * Class representing a polygonal hitbox.
+ */
+export class PolygonalHitbox extends Hitbox {
+   /**
+    * The radius of the polygon.
+    */
+   radius: number;
+
+   /**
+    * The number of sides of the polygon.
+    */
+   sides: number;
+
+   /**
+    * Creates a polygonal hitbox.
+    * @param radius - The radius of the polygon.
+    * @param sides - The number of sides the polygon.
+    */
+   constructor(radius: number, sides: number) {
+      super();
+      this.radius = radius;
+      this.sides = sides;
+   }
 }
