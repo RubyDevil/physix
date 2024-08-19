@@ -16,5 +16,5 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
 Object.defineProperty(exports, "__esModule", { value: true });
 __exportStar(require("./classes/vector"), exports);
 __exportStar(require("./classes/point"), exports);
-__exportStar(require("./classes/hitbox"), exports);
+__exportStar(require("./classes/shape"), exports);
 //# sourceMappingURL=index.js.map

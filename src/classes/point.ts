@@ -4,10 +4,14 @@ import { Vector } from "./vector";
  * Class representing a point in 2D space.
  */
 export class Point {
-   /** The x-coordinate of the point. */
+   /**
+    * The x-coordinate of the point.
+    */
    x: number;
 
-   /** The y-coordinate of the point. */
+   /**
+    * The y-coordinate of the point.
+    */
    y: number;
 
    // ----- Instance -----
@@ -73,6 +77,22 @@ export class Point {
          : [arguments[0], arguments[1]];
       this.x += displacement[0];
       this.y += displacement[1];
+      return this;
+   }
+
+   /**
+    * Rotates the point around a pivot.
+    * @param {number} angle - The angle of rotation in radians.
+    * @param {Point} pivot - The pivot point to rotate around.
+    * @returns {Point} The resulting point.
+    */
+   rotate(angle: number, pivot: Point = Point.Origin()): Point {
+      const dx = this.x - pivot.x;
+      const dy = this.y - pivot.y;
+      const cos = Math.cos(angle);
+      const sin = Math.sin(angle);
+      this.x = pivot.x + dx * cos - dy * sin;
+      this.y = pivot.y + dx * sin + dy * cos;
       return this;
    }
 

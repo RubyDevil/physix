@@ -2,10 +2,14 @@
  * Class representing a 2D vector.
  */
 export class Vector {
-   /** The x-coordinate of the vector. */
+   /**
+    * The x-coordinate of the vector.
+    */
    x: number;
 
-   /** The y-coordinate of the vector. */
+   /**
+    * The y-coordinate of the vector.
+    */
    y: number;
 
    /**

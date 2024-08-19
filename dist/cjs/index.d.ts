@@ -1,4 +1,4 @@
 export * from "./classes/vector";
 export * from "./classes/point";
-export * from "./classes/hitbox";
+export * from "./classes/shape";
 //# sourceMappingURL=index.d.ts.map

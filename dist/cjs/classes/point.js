@@ -51,6 +51,21 @@ class Point {
         this.y += displacement[1];
         return this;
     }
+    /**
+     * Rotates the point around a pivot.
+     * @param {number} angle - The angle of rotation in radians.
+     * @param {Point} pivot - The pivot point to rotate around.
+     * @returns {Point} The resulting point.
+     */
+    rotate(angle, pivot = Point.Origin()) {
+        const dx = this.x - pivot.x;
+        const dy = this.y - pivot.y;
+        const cos = Math.cos(angle);
+        const sin = Math.sin(angle);
+        this.x = pivot.x + dx * cos - dy * sin;
+        this.y = pivot.y + dx * sin + dy * cos;
+        return this;
+    }
     // ----- Calculations -----
     /**
      * Calculates the distance to another point.

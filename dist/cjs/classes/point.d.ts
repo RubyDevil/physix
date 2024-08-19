@@ -3,9 +3,13 @@ import { Vector } from "./vector";
  * Class representing a point in 2D space.
  */
 export declare class Point {
-    /** The x-coordinate of the point. */
+    /**
+     * The x-coordinate of the point.
+     */
     x: number;
-    /** The y-coordinate of the point. */
+    /**
+     * The y-coordinate of the point.
+     */
     y: number;
     /**
      * Creates a point.
@@ -43,6 +47,13 @@ export declare class Point {
      * @returns {Point} The resulting point.
      */
     translate(dx: number, dy: number): Point;
+    /**
+     * Rotates the point around a pivot.
+     * @param {number} angle - The angle of rotation in radians.
+     * @param {Point} pivot - The pivot point to rotate around.
+     * @returns {Point} The resulting point.
+     */
+    rotate(angle: number, pivot?: Point): Point;
     /**
      * Calculates the distance to another point.
      * @param {Point} point - The other point.
