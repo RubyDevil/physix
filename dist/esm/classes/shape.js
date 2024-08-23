@@ -1,24 +1,20 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.Rectangle = exports.Polygon = exports.Circle = exports.Shape = void 0;
-const point_1 = require("./point");
-const vector_1 = require("./vector");
+import { Point } from "./point";
+import { Vector } from "./vector";
 // =================================================================================================
 /**
  * Base class representing a shape in 2D space.
  * @abstract
  */
-class Shape {
+export class Shape {
     constructor() {
         /** The goemetrical center point of the shape. */
-        this.centroid = point_1.Point.Origin();
+        this.centroid = Point.Origin();
         if (new.target === Shape)
             throw new TypeError("Shape is an abstract class and cannot be instantiated directly.");
     }
 }
-exports.Shape = Shape;
 // =================================================================================================
-class Circle extends Shape {
+export class Circle extends Shape {
     constructor(radius) {
         super();
         this.radius = radius;
@@ -27,9 +23,8 @@ class Circle extends Shape {
         this.centroid = centroid;
     }
 }
-exports.Circle = Circle;
 // =================================================================================================
-class Polygon extends Shape {
+export class Polygon extends Shape {
     constructor(vertices) {
         // if (new.target === Polygon) throw new TypeError("Polygon is an abstract class and cannot be instantiated directly.");
         super();
@@ -54,7 +49,7 @@ class Polygon extends Shape {
         for (let i = 0; i < vertices.length; i++) {
             const [vertex1, vertex2, vertex3] = [vertices[i], vertices[(i + 1) % vertices.length], vertices[(i + 2) % vertices.length]];
             const [line1, line2] = [vertex1.vectorTo(vertex2), vertex2.vectorTo(vertex3)];
-            const crossProduct = vector_1.Vector.crossProduct(line1, line2);
+            const crossProduct = Vector.crossProduct(line1, line2);
             const crossProductSign = Math.sign(crossProduct);
             if (crossProductSign !== 0) {
                 if (lastCrossProductSign !== undefined && crossProductSign !== lastCrossProductSign) {
@@ -70,19 +65,17 @@ class Polygon extends Shape {
         this.vertices = this.originalVertices.map((vertex) => vertex.rotate(orientation).translate(center.x, center.y));
     }
 }
-exports.Polygon = Polygon;
 // =================================================================================================
-class Rectangle extends Polygon {
+export class Rectangle extends Polygon {
     constructor(width, height) {
         super([
-            new point_1.Point(-width / 2, height / 2),
-            new point_1.Point(width / 2, height / 2),
-            new point_1.Point(width / 2, -height / 2),
-            new point_1.Point(-width / 2, -height / 2)
+            new Point(-width / 2, height / 2),
+            new Point(width / 2, height / 2),
+            new Point(width / 2, -height / 2),
+            new Point(-width / 2, -height / 2)
         ]);
         this.width = width;
         this.height = height;
     }
 }
-exports.Rectangle = Rectangle;
 //# sourceMappingURL=shape.js.map

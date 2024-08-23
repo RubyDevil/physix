@@ -118,6 +118,15 @@ export class Point {
       return Math.atan2(point.y - this.y, point.x - this.x);
    }
 
+   /**
+    * Calculates the vector to another point.
+    * @param {Point} point - The other point.
+    * @returns {Vector} The vector to the other point.
+    */
+   vectorTo(point: Point): Vector {
+      return new Vector(point.x - this.x, point.y - this.y);
+   }
+
    // ----- Other -----
 
    /**

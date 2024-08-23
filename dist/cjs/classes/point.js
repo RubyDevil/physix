@@ -85,6 +85,14 @@ class Point {
     angleTo(point) {
         return Math.atan2(point.y - this.y, point.x - this.x);
     }
+    /**
+     * Calculates the vector to another point.
+     * @param {Point} point - The other point.
+     * @returns {Vector} The vector to the other point.
+     */
+    vectorTo(point) {
+        return new vector_1.Vector(point.x - this.x, point.y - this.y);
+    }
     // ----- Other -----
     /**
      * Checks if this point is equal to another point.
