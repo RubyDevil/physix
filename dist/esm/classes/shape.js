@@ -47,9 +47,9 @@ export class Polygon extends Shape {
     static isConvex(vertices) {
         let lastCrossProductSign;
         for (let i = 0; i < vertices.length; i++) {
-            const [vertex1, vertex2, vertex3] = [vertices[i], vertices[(i + 1) % vertices.length], vertices[(i + 2) % vertices.length]];
-            const [line1, line2] = [vertex1.vectorTo(vertex2), vertex2.vectorTo(vertex3)];
-            const crossProduct = Vector.crossProduct(line1, line2);
+            const vertex1 = vertices[i], vertex2 = vertices[(i + 1) % vertices.length], vertex3 = vertices[(i + 2) % vertices.length];
+            const line1 = vertex1.vectorTo(vertex2), line2 = vertex2.vectorTo(vertex3);
+            const crossProduct = Vector.cross(line1, line2);
             const crossProductSign = Math.sign(crossProduct);
             if (crossProductSign !== 0) {
                 if (lastCrossProductSign !== undefined && crossProductSign !== lastCrossProductSign) {
@@ -59,6 +59,12 @@ export class Polygon extends Shape {
             }
         }
         return true;
+    }
+    /**
+     * Finds the centroid of a polygon.
+     */
+    static findCentroid(vertices) {
+        throw new Error("Method not implemented.");
     }
     updatePosition(center, orientation) {
         this.centroid = center;

@@ -1,278 +1,159 @@
-/**
- * Class representing a 2D vector.
- */
+/** Class representing a 2D vector. */
 export class Vector {
-   /**
-    * The x-coordinate of the vector.
-    */
-   x: number;
+   /** The x-coordinate of the vector. */
+   get x(): number { return this._x; }
+   private _x: number;
 
-   /**
-    * The y-coordinate of the vector.
-    */
-   y: number;
+   /** The y-coordinate of the vector. */
+   get y(): number { return this._y; }
+   private _y: number;
 
-   /**
-    * Creates a vector.
-    * @param {number} x - The x-coordinate.
-    * @param {number} y - The y-coordinate.
-    */
-   constructor(x: number, y: number) {
-      this.x = x;
-      this.y = y;
+   /** The magnitude of the vector. */
+   get magnitude(): number {
+      return this._magnitude
+         ? this._magnitude
+         : this._magnitude = Math.hypot(this.x, this.y);
    }
+   private _magnitude?: number;
 
-   /**
-    * Creates a clone of the vector.
-    * @returns {Vector} A clone of the vector.
-    */
-   clone(): Vector {
-      return new Vector(this.x, this.y);
+   /** The angle of the vector in radians. */
+   get angle(): number {
+      return this._angle
+         ? this._angle
+         : this._angle = Math.atan2(this.y, this.x);
    }
+   private _angle?: number;
 
-   // ----- Information -----
-
-   /**
-    * Checks if the vector is a zero vector.
-    * @returns {boolean} True if the vector is a zero vector, false otherwise.
-    */
-   isZero(): boolean {
+   /** Whether the vector is the zero vector. */
+   get isZero(): boolean {
       return this.x === 0 && this.y === 0;
    }
 
-   /**
-    * Calculates the magnitude of the vector.
-    * @param {boolean} [precision] - The number of decimal places to round to.
-    * @returns {number} The magnitude of the vector.
-    */
-   magnitude(precision?: number): number {
-      return precision
-         ? Math.round(Math.hypot(this.x, this.y) * 10 ** precision) / 10 ** precision
-         : Math.hypot(this.x, this.y);
+   /** Creates a vector. */
+   constructor(x: number, y: number) {
+      this._x = x;
+      this._y = y;
    }
 
-   /**
-    * Calculates the angle of the vector.
-    * @returns {number} The angle of the vector.
-    */
-   angle(): number {
-      return Math.atan2(this.y, this.x);
+   /** Adds another vector to this vector. */
+   add(vector: Vector): Vector;
+   /** Add the specified x and y values to this vector. */
+   add(x: number, y: number): Vector;
+   add(): Vector {
+      const [x, y]: [number, number] = arguments[0] instanceof Vector
+         ? [arguments[0].x, arguments[0].y]
+         : [arguments[0], arguments[1]];
+      return new Vector(this.x + x, this.y + y);
    }
 
-   // ----- Transformations -----
-
-   /**
-    * Sets the coordinates of the vector.
-    * @param {number} x - The new x-coordinate.
-    * @param {number} y - The new y-coordinate.
-    * @returns {Vector} The resulting vector.
-    */
-   set(x: number, y: number): Vector {
-      this.x = x;
-      this.y = y;
-      return this;
+   /** Subtracts another vector from this vector. */
+   subtract(vector: Vector): Vector;
+   /** Subtract the specified x and y values from this vector. */
+   subtract(x: number, y: number): Vector;
+   subtract(): Vector {
+      const [x, y]: [number, number] = arguments[0] instanceof Vector
+         ? [arguments[0].x, arguments[0].y]
+         : [arguments[0], arguments[1]];
+      return new Vector(this.x - x, this.y - y);
    }
 
-   /**
-    * Adds another vector to this vector.
-    * @param {Vector} vector - The vector to add.
-    * @returns {Vector} The resulting vector.
-    */
-   add(vector: Vector): Vector {
-      this.x += vector.x;
-      this.y += vector.y;
-      return this;
-   }
-
-   /**
-    * Subtracts another vector from this vector.
-    * @param {Vector} vector - The vector to subtract.
-    * @returns {Vector} The resulting vector.
-    */
-   subtract(vector: Vector): Vector {
-      this.x -= vector.x;
-      this.y -= vector.y;
-      return this;
-   }
-
-   /**
-    * Multiplies the vector by a scalar.
-    * @param {number} scalar - The scalar to multiply by.
-    * @returns {Vector} The resulting vector.
-    */
+   /** Multiplies the vector by a scalar. */
    multiply(scalar: number): Vector {
-      this.x *= scalar;
-      this.y *= scalar;
-      return this;
+      return new Vector(this.x * scalar, this.y * scalar);
    }
 
-   /**
-    * Divides the vector by a scalar.
-    * @param {number} scalar - The scalar to divide by.
-    * @returns {Vector} The resulting vector.
-    */
+   /** Divides the vector by a scalar. */
    divide(scalar: number): Vector {
       if (scalar === 0) throw new Error("Division by zero.");
-      this.x /= scalar;
-      this.y /= scalar;
-      return this;
+      return new Vector(this.x / scalar, this.y / scalar);
    }
 
-   /**
-    * Flips the vector along the x-axis and y-axis.
-    * @returns {Vector} The resulting vector.
-    */
+   /** Flips the vector along the x-axis and y-axis. */
    flip(): Vector {
-      this.x = -this.x;
-      this.y = -this.y;
-      return this;
+      return new Vector(-this.x, -this.y);
    }
 
-   /**
-    * Flips the vector along the x-axis.
-    * @returns {Vector} The resulting vector.
-    */
+   /** Flips the vector along the x-axis. */
    flipX(): Vector {
-      this.x = -this.x;
-      return this;
+      return new Vector(-this.x, this.y);
    }
 
 
-   /**
-    * Flips the vector along the y-axis.
-    * @returns {Vector} The resulting vector.
-    */
+   /** Flips the vector along the y-axis. */
    flipY(): Vector {
-      this.y = -this.y;
-      return this;
+      return new Vector(this.x, -this.y);
    }
 
-   /**
-    * Normalizes the vector (makes it a unit vector).
-    * @returns {Vector} The normalized vector.
-    */
+   /** Normalizes the vector (makes it a unit vector). */
    normalize(): Vector {
-      const magnitude = this.magnitude();
-      return new Vector(this.x / magnitude, this.y / magnitude);
+      return new Vector(this.x / this.magnitude, this.y / this.magnitude);
    }
 
-   /**
-    * Resizes the vector to have the specified magnitude.
-    * @param {number} magnitude - The new magnitude for the vector.
-    * @returns {Vector} The resulting vector.
-    */
-   resize(magnitude: number): Vector {
-      if (this.isZero()) return this;
-      return this.multiply(magnitude / this.magnitude());
-   }
-
-   /**
-    * Clamps the vector's magnitude to a specified range.
-    * @param {number} min - The minimum magnitude.
-    * @param {number} max - The maximum magnitude.
-    * @returns {Vector} The clamped vector.
-    */
-   clamp(min: number, max: number): Vector {
-      const clampedMagnitude = Math.max(min, Math.min(this.magnitude(), max));
-      return this.resize(clampedMagnitude);
-   }
-
-   /**
-    * Rotates the vector by a specified angle.
-    * @param {number} angle - The angle to rotate by.
-    * @returns {Vector} The resulting vector.
-    */
+   /** Rotates the vector by a specified angle */
    rotate(angle: number): Vector {
       const cos = Math.cos(angle);
       const sin = Math.sin(angle);
-      const x = this.x * cos - this.y * sin;
-      const y = this.x * sin + this.y * cos;
-      this.x = x;
-      this.y = y;
-      return this;
+      return new Vector(
+         this.x * cos - this.y * sin,
+         this.x * sin + this.y * cos
+      );
    }
 
-   // ----- Other -----
+   /** Resizes the vector to have the specified magnitude.
+    * @param {number} magnitude - The new magnitude for the vector. */
+   resize(magnitude: number): Vector {
+      if (this.isZero) return this;
+      return new Vector(this.x * magnitude / this.magnitude, this.y * magnitude / this.magnitude);
+   }
 
-   /**
-    * Checks if the vector is equal to another vector.
-    * @param {Vector} vector - The other vector.
-    * @returns {boolean} True if the vectors are equal, false otherwise.
-    */
+   /** Clamps the vector's magnitude to a specified range. */
+   clamp(min: number, max: number): Vector {
+      return this.resize(Math.max(min, Math.min(this.magnitude, max)));
+   }
+
+   /** Checks if the vector is equal to another vector. */
    equals(vector: Vector): boolean {
       return this.x === vector.x && this.y === vector.y;
    }
 
-   /**
-    * Returns a string representation of the vector.
-    * @param {string} [notation="rectangular"] - The notation to use, either "rectangular" or "polar".
-    * @returns {string} A string representation of the vector.
-    */
+   /** Returns a string representation of the vector. */
    toText(notation: "rectangular" | "polar" = "rectangular"): string {
       if (notation === "rectangular") {
          return `Vector(${this.x}, ${this.y})`;
       } else if (notation === "polar") {
-         return `Vector(${this.magnitude()} ∠ ${this.angle()}°)`;
+         return `Vector(${this.magnitude} ∠ ${this.angle}°)`;
       } else {
          throw new Error("Invalid notation.");
       }
    }
 
-   // ----- Static -----
-
-   /**
-    * Creates a zero vector.
-    * @returns {Vector} A zero vector.
-    */
+   /** Creates a zero vector. */
    static Zero(): Vector {
       return new Vector(0, 0);
    }
 
-   /**
-    * Creates a vector from polar coordinates (magnitude and angle).
-    * @param {number} magnitude - The magnitude.
-    * @param {number} angle - The angle.
-    * @returns {Vector} The resulting vector.
-    */
+   /** Creates a vector from polar coordinates (magnitude and angle). */
    static fromPolar(magnitude: number, angle: number): Vector {
       return new Vector(magnitude * Math.cos(angle), magnitude * Math.sin(angle));
    }
 
-   /**
-    * Creates a unit vector from an angle.
-    * @param {number} angle - The angle.
-    * @returns {Vector} The resulting unit vector.
-    */
+   /** Creates a unit vector from an angle. */
    static fromAngle(angle: number): Vector {
       return new Vector(Math.cos(angle), Math.sin(angle));
    }
 
-   /**
-    * Calculates the dot product of two vectors.
-    * @param {Vector} vector1 - The first vector.
-    * @param {Vector} vector2 - The second vector.
-    * @returns {number} The dot product of the two vectors.
-    */
-   static dotProduct(vector1: Vector, vector2: Vector): number {
+   /** Calculates the dot product of two vectors. */
+   static dot(vector1: Vector, vector2: Vector): number {
       return vector1.x * vector2.x + vector1.y * vector2.y;
    }
 
-   /**
-    * Calculates the cross product of two vectors.
-    * @param {Vector} vector1 - The first vector.
-    * @param {Vector} vector2 - The second vector.
-    * @returns {number} The cross product of the two vectors.
-    */
-   static crossProduct(vector1: Vector, vector2: Vector): number {
+   /** Calculates the cross product of two vectors. */
+   static cross(vector1: Vector, vector2: Vector): number {
       return vector1.x * vector2.y - vector1.y * vector2.x;
    }
 
-   /**
-    * Calculates the sum of several vectors.
-    * @param {...Vector} vectors - The vectors to combine.
-    * @returns {Vector} The resulting vector.
-    */
-   static combine(...vectors: Vector[]): Vector {
+   /** Calculates the sum of several vectors. */
+   static sum(...vectors: Vector[]): Vector {
       return vectors.reduce((sum, vector) => sum.add(vector), Vector.Zero());
    }
 }

@@ -32,6 +32,10 @@ export declare class Polygon extends Shape {
      * @returns {boolean} True if the polygon is convex, false otherwise.
      */
     static isConvex(vertices: Point[]): boolean;
+    /**
+     * Finds the centroid of a polygon.
+     */
+    private static findCentroid;
     updatePosition(center: Point, orientation: number): void;
 }
 export declare class Rectangle extends Polygon {
@@ -41,4 +45,3 @@ export declare class Rectangle extends Polygon {
     height: number;
     constructor(width: number, height: number);
 }
-//# sourceMappingURL=shape.d.ts.map
