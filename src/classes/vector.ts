@@ -1,5 +1,9 @@
 /** Class representing a 2D vector. */
 export class Vector {
+   /** The zero vector. */
+   static get Zero(): Vector { return Vector._Zero; }
+   private static _Zero = new Vector(0, 0);
+
    /** The x-coordinate of the vector. */
    get x(): number { return this._x; }
    private _x: number;
@@ -127,11 +131,6 @@ export class Vector {
       }
    }
 
-   /** Creates a zero vector. */
-   static Zero(): Vector {
-      return new Vector(0, 0);
-   }
-
    /** Creates a vector from polar coordinates (magnitude and angle). */
    static fromPolar(magnitude: number, angle: number): Vector {
       return new Vector(magnitude * Math.cos(angle), magnitude * Math.sin(angle));
@@ -154,6 +153,6 @@ export class Vector {
 
    /** Calculates the sum of several vectors. */
    static sum(...vectors: Vector[]): Vector {
-      return vectors.reduce((sum, vector) => sum.add(vector), Vector.Zero());
+      return vectors.reduce((sum, vector) => sum.add(vector), Vector.Zero);
    }
 }

@@ -1,5 +1,8 @@
 /** Class representing a 2D vector. */
 export declare class Vector {
+    /** The zero vector. */
+    static get Zero(): Vector;
+    private static _Zero;
     /** The x-coordinate of the vector. */
     get x(): number;
     private _x;
@@ -47,8 +50,6 @@ export declare class Vector {
     equals(vector: Vector): boolean;
     /** Returns a string representation of the vector. */
     toText(notation?: "rectangular" | "polar"): string;
-    /** Creates a zero vector. */
-    static Zero(): Vector;
     /** Creates a vector from polar coordinates (magnitude and angle). */
     static fromPolar(magnitude: number, angle: number): Vector;
     /** Creates a unit vector from an angle. */

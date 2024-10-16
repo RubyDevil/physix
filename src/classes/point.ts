@@ -1,9 +1,11 @@
 import { Vector } from "./vector";
 
-/**
- * Class representing a point in 2D space.
- */
+/** Class representing a point in 2D space. */
 export class Point {
+   /** The origin point (0, 0). */
+   static get Origin(): Point { return Point._Origin; }
+   private static _Origin = new Point(0, 0);
+
    /** The x-coordinate of the point. */
    get x(): number { return this._x; }
    private _x: number;
@@ -34,7 +36,7 @@ export class Point {
    }
 
    /** Rotates the point around a pivot. */
-   rotate(angle: number, pivot: Point = Point.Origin()): Point {
+   rotate(angle: number, pivot: Point = Point.Origin): Point {
       const dx = this.x - pivot.x;
       const dy = this.y - pivot.y;
       const cos = Math.cos(angle);
@@ -68,10 +70,5 @@ export class Point {
    /** Returns a string representation of the point. */
    toText(): string {
       return `Point(${this.x}, ${this.y})`;
-   }
-
-   /** Creates a point at the origin. */
-   static Origin(): Point {
-      return new Point(0, 0);
    }
 }

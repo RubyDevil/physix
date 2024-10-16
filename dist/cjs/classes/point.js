@@ -2,10 +2,10 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Point = void 0;
 const vector_1 = require("./vector");
-/**
- * Class representing a point in 2D space.
- */
+/** Class representing a point in 2D space. */
 class Point {
+    /** The origin point (0, 0). */
+    static get Origin() { return Point._Origin; }
     /** The x-coordinate of the point. */
     get x() { return this._x; }
     /** The y-coordinate of the point. */
@@ -26,7 +26,7 @@ class Point {
         return new Point(this.x + x, this.y + y);
     }
     /** Rotates the point around a pivot. */
-    rotate(angle, pivot = Point.Origin()) {
+    rotate(angle, pivot = Point.Origin) {
         const dx = this.x - pivot.x;
         const dy = this.y - pivot.y;
         const cos = Math.cos(angle);
@@ -53,10 +53,7 @@ class Point {
     toText() {
         return `Point(${this.x}, ${this.y})`;
     }
-    /** Creates a point at the origin. */
-    static Origin() {
-        return new Point(0, 0);
-    }
 }
 exports.Point = Point;
+Point._Origin = new Point(0, 0);
 //# sourceMappingURL=point.js.map

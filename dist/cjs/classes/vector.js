@@ -3,6 +3,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Vector = void 0;
 /** Class representing a 2D vector. */
 class Vector {
+    /** The zero vector. */
+    static get Zero() { return Vector._Zero; }
     /** The x-coordinate of the vector. */
     get x() { return this._x; }
     /** The y-coordinate of the vector. */
@@ -99,10 +101,6 @@ class Vector {
             throw new Error("Invalid notation.");
         }
     }
-    /** Creates a zero vector. */
-    static Zero() {
-        return new Vector(0, 0);
-    }
     /** Creates a vector from polar coordinates (magnitude and angle). */
     static fromPolar(magnitude, angle) {
         return new Vector(magnitude * Math.cos(angle), magnitude * Math.sin(angle));
@@ -121,8 +119,9 @@ class Vector {
     }
     /** Calculates the sum of several vectors. */
     static sum(...vectors) {
-        return vectors.reduce((sum, vector) => sum.add(vector), Vector.Zero());
+        return vectors.reduce((sum, vector) => sum.add(vector), Vector.Zero);
     }
 }
 exports.Vector = Vector;
+Vector._Zero = new Vector(0, 0);
 //# sourceMappingURL=vector.js.map

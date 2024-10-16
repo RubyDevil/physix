@@ -1,8 +1,9 @@
 import { Vector } from "./vector";
-/**
- * Class representing a point in 2D space.
- */
+/** Class representing a point in 2D space. */
 export declare class Point {
+    /** The origin point (0, 0). */
+    static get Origin(): Point;
+    private static _Origin;
     /** The x-coordinate of the point. */
     get x(): number;
     private _x;
@@ -28,6 +29,4 @@ export declare class Point {
     equals(point: Point): boolean;
     /** Returns a string representation of the point. */
     toText(): string;
-    /** Creates a point at the origin. */
-    static Origin(): Point;
 }
